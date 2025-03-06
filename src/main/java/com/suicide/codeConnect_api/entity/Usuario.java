@@ -13,7 +13,7 @@ import java.util.Objects;
 @Getter @Setter @NoArgsConstructor
 @Entity
 @Table(name = "usuario")
-public class Usuarios implements Serializable {
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class Usuarios implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Usuarios usuarios = (Usuarios) o;
+        Usuario usuarios = (Usuario) o;
         return Objects.equals(id, usuarios.id);
     }
 
