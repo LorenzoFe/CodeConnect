@@ -49,4 +49,9 @@ public class UsuarioService {
             return user;
     }
 
+    public Usuario buscarPorEmail(String email) {
+            return usuarioRepository.findByEmail(email).orElseThrow(
+                    () -> new EntityNotFoundException(" email não encontrado")
+            );
+    }
 }

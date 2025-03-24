@@ -4,16 +4,16 @@ package com.suicide.codeConnect_api.web.controller;
 import com.suicide.codeConnect_api.entity.Usuario;
 import com.suicide.codeConnect_api.repository.UsuarioRepository;
 import com.suicide.codeConnect_api.service.UsuarioService;
-import com.suicide.codeConnect_api.web.dto.LoginDto;
-import com.suicide.codeConnect_api.web.dto.UsuarioCreateDto;
-import com.suicide.codeConnect_api.web.dto.UsuarioResponseDto;
-import com.suicide.codeConnect_api.web.dto.UsuarioSenhaDto;
+import com.suicide.codeConnect_api.web.dto.*;
 import com.suicide.codeConnect_api.web.dto.mapper.UsuarioMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,10 +35,18 @@ public class UsuarioController {
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
 
+    @PostMapping("/email")
+    public ResponseEntity<UsuarioResponseDto> getEmail(@RequestBody EmailDto email){
+        Usuario user = usuarioService.buscarPorEmail(email.getEmail());
+        return ResponseEntity.ok(UsuarioMapper.toDto(user));
+    }
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<Map<String, String>> login(@RequestBody LoginDto loginDto){
         Usuario usuario = usuarioService.autenticar(loginDto.getEmail(), loginDto.getPassword());
-        return ResponseEntity.ok("Login realizado com sucesso");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Login realizado com sucesso");
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}")
