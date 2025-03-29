@@ -21,7 +21,6 @@ public class UsuarioCreateDto {
     @Email(message = "Formato do email está invalido", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
     private String email;
     @NotBlank
-    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{8,20}$",
-            message = "A senha deve conter pelo menos um caractere maiúsculo e um caractere especial")
+    @Size(min = 8, max = 20)
     private String password;
 }
