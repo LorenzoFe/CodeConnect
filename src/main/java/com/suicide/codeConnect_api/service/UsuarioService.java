@@ -1,13 +1,14 @@
 package com.suicide.codeConnect_api.service;
 
 import com.suicide.codeConnect_api.entity.Usuario;
+import com.suicide.codeConnect_api.exception.EmailUniqueViolationException;
 import com.suicide.codeConnect_api.repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +17,11 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        try {
+            return usuarioRepository.save(usuario);
+        } catch (org.springframework.dao.DataIntegrityViolationException ex){
+            throw new EmailUniqueViolationException(String.format("Email {%s} já cadastrado", usuario.getEmail()));
+        }
     }
 
     @Transactional
@@ -48,10 +53,14 @@ public class UsuarioService {
             user.setPassword(novaSenha);
             return user;
     }
-
+    @Transactional
     public Usuario buscarPorEmail(String email) {
             return usuarioRepository.findByEmail(email).orElseThrow(
                     () -> new EntityNotFoundException(" email não encontrado")
             );
+    }
+    @Transactional
+    public List<Usuario> listarTodos(){
+        return usuarioRepository.findAll();
     }
 }

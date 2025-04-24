@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -53,6 +54,12 @@ public class UsuarioController {
         public ResponseEntity<UsuarioResponseDto> updatePassword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDto dto){
            Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
             return ResponseEntity.ok(UsuarioMapper.toDto(user));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UsuarioResponseDto>> listar(){
+        List<Usuario> user = usuarioService.listarTodos();
+        return ResponseEntity.ok(UsuarioMapper.toListDto(user));
     }
     //proximos passos tratar excções e documentar no swagger
 }
