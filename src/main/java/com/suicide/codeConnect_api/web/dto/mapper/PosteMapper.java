@@ -1,0 +1,25 @@
+package com.suicide.codeConnect_api.web.dto.mapper;
+
+import com.suicide.codeConnect_api.entity.Posts;
+import com.suicide.codeConnect_api.web.dto.PostsDto;
+import com.suicide.codeConnect_api.web.dto.PostsResponseDTO;
+import org.modelmapper.ModelMapper;
+import org.springframework.boot.Banner;
+
+public class PosteMapper {
+
+    private static final ModelMapper modelMapper = new ModelMapper();
+    public static Posts toPoste(PostsDto postsDto){
+        return new ModelMapper().map(postsDto, Posts.class);
+    }
+
+
+    public static PostsResponseDTO toDto(Posts posts){
+        PostsResponseDTO dto = modelMapper.map(posts, PostsResponseDTO.class);
+        if (posts.getUsuarioFk() != null){
+            dto.setNomeUsuario(posts.getUsuarioFk().getUsername());
+        }
+        return dto;
+    }
+
+}
