@@ -6,6 +6,9 @@ import com.suicide.codeConnect_api.web.dto.PostsResponseDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.Banner;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class PosteMapper {
 
     private static final ModelMapper modelMapper = new ModelMapper();
@@ -20,6 +23,9 @@ public class PosteMapper {
             dto.setNomeUsuario(posts.getUsuarioFk().getUsername());
         }
         return dto;
+    }
+    public static List<PostsResponseDTO> toListDto(List<Posts> posts){
+        return posts.stream().map(post ->toDto(post)).collect(Collectors.toList());
     }
 
 }

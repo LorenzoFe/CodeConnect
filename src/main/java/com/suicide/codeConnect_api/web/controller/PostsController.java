@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,7 +22,6 @@ import java.util.Map;
 public class PostsController {
 
     private final PostsService postsService;
-    private final PostsRepository PostsRepository;
 
     @PostMapping
     public ResponseEntity<PostsResponseDTO> create(@Valid @RequestBody PostsDto createDto){
@@ -29,34 +29,40 @@ public class PostsController {
         return ResponseEntity.ok(PosteMapper.toDto(post));
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<PostsDto> getById(@PathVariable Long id){
-//        Posts post =PostsService.buscarPorId(id);
-//        return ResponseEntity.ok(PosteMapper.toDto(post));
-//    }
-//
-//    @PostMapping("/titulo")
-//    public ResponseEntity<PostsDto> getTitle(@RequestBody TitleDto title){
-//        Posts post = PostsService.buscarPorTitle(title.getTitle());
-//        return ResponseEntity.ok(PosteMapper.toDto(post));
-//    }
-//
-//    @PostMapping("/tag")
-//    public ResponseEntity<PostsDto> getTag(@RequestBody TagDto tag){
-//        Posts post = PostsService.buscarPorTag(tag.getTag());
-//        return ResponseEntity.ok(PosteMapper.toDto(post));
-//    }
-//
+    @GetMapping
+    public ResponseEntity<List<PostsResponseDTO>> getAllPosts(){
+        List<Posts> posts = postsService.getAllPosts();
+        return ResponseEntity.ok(PosteMapper.toListDto(posts));
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<List<PostsResponseDTO>> getPostsByUsuario(@PathVariable Long usuarioId){
+        List<Posts> posts = postsService.getPostsByUsuarioId(usuarioId);
+        return ResponseEntity.ok(PosteMapper.toListDto(posts));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PostsResponseDTO> getById(@PathVariable Long id){
+        Posts post = postsService.buscarPorId(id);
+        return ResponseEntity.ok(PosteMapper.toDto(post));
+    }
+
+    @PostMapping("/titulo")
+    public ResponseEntity<PostsResponseDTO> getTitle(@RequestBody TitleDto title){
+        Posts post = postsService.buscarPorTitle(title.getTitle());
+        return ResponseEntity.ok(PosteMapper.toDto(post));
+    }
+
 //    @PutMapping("/{id}")
 //    public ResponseEntity<PostsDto> update(@PathVariable Long id, @Valid @RequestBody PostsDto dto) {
-//        Posts postAtualizado = PostsService.atualizarPost(id, PosteMapper.toPoste(dto));
+//        Posts postAtualizado = postsService.atualizarPost(id, PosteMapper.toPoste(dto));
 //        return ResponseEntity.ok(PosteMapper.toDto(postAtualizado));
 //    }
 //
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> delete(@PathVariable Long id) {
-//        PostsService.deletarPost(id);
-//        return ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        postsService.deletarPost(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }

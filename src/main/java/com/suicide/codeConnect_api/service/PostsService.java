@@ -10,11 +10,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PostsService {
     private final PostsRepository postsRepository;
-    private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
 
     @Transactional
@@ -30,14 +31,17 @@ public class PostsService {
     }
 
     @Transactional
-    public Posts atualizarPost(Long id, Posts postAtualizado) {
-        Posts postExistente = buscarPorId(id);
-        postExistente.setTitle(postAtualizado.getTitle());
-        postExistente.setDescricaoPost(postAtualizado.getDescricaoPost());
-        postExistente.setTag(postAtualizado.getTag());
-
-        return postsRepository.save(postExistente);
+    public List<Posts> getAllPosts(){
+        return postsRepository.findAll();
     }
+
+    @Transactional
+    public List<Posts> getPostsByUsuarioId(Long usuarioId){
+        var usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(()-> new RuntimeException("Usuário não encontrado"));
+        return postsRepository.findByUsuarioFk(usuario);
+    }
+
     @Transactional
     public void deletarPost(Long id) {
         Posts post = buscarPorId(id);
@@ -54,27 +58,9 @@ public class PostsService {
     @Transactional
     public Posts buscarPorTitle(String title) {
         return postsRepository.findByTitle(title).orElseThrow(
-                () -> new EntityNotFoundException(String.format("titulo não encontrado", title))
+                () -> new EntityNotFoundException(String.format("titulo '/%s' não encontrado", title))
         );
     }
-
-    @Transactional
-    public Posts buscarPorTag(String tag) {
-        return postsRepository.findByTag(tag).orElseThrow(
-                () -> new EntityNotFoundException(String.format("tag não encontrada", tag))
-        );
-    }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
