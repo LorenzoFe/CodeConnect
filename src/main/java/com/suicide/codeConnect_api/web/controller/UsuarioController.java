@@ -5,6 +5,7 @@ import com.suicide.codeConnect_api.entity.Usuario;
 import com.suicide.codeConnect_api.repository.UsuarioRepository;
 import com.suicide.codeConnect_api.service.UsuarioService;
 import com.suicide.codeConnect_api.web.dto.*;
+import com.suicide.codeConnect_api.web.dto.mapper.LoginMapper;
 import com.suicide.codeConnect_api.web.dto.mapper.UsuarioMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,11 +44,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginDto loginDto){
         Usuario usuario = usuarioService.autenticar(loginDto.getEmail(), loginDto.getPassword());
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Login realizado com sucesso");
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(LoginMapper.toLoginDto(usuario));
     }
 
     @PatchMapping("/{id}")
