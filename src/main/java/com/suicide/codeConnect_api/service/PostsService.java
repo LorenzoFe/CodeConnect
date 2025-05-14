@@ -56,10 +56,8 @@ public class PostsService {
     }
 
     @Transactional
-    public Posts buscarPorTitle(String title) {
-        return postsRepository.findByTitle(title).orElseThrow(
-                () -> new EntityNotFoundException(String.format("titulo '/%s' não encontrado", title))
-        );
+    public List<Posts> buscarPorTitle(String title) {
+        return postsRepository.findByTitleContainingIgnoreCase(title);
     }
 
 
