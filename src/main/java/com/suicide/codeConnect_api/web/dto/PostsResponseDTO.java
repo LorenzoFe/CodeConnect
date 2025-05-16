@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class PostsResponseDTO {
+    private String id;
     private String title;
     private String descricao;
     private String nomeUsuario;
