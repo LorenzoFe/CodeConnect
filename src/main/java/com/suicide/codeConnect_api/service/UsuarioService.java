@@ -3,6 +3,8 @@ package com.suicide.codeConnect_api.service;
 import com.suicide.codeConnect_api.entity.Usuario;
 import com.suicide.codeConnect_api.exception.EmailUniqueViolationException;
 import com.suicide.codeConnect_api.repository.UsuarioRepository;
+import com.suicide.codeConnect_api.web.dto.UsuarioUpdateDTO;
+import com.suicide.codeConnect_api.web.dto.mapper.UsuarioMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +41,14 @@ public class UsuarioService {
             throw new IllegalArgumentException("Senha incorreta");
         }
         return usuario;
+    }
+
+    @Transactional
+    public Usuario atualizarDados(Long id, UsuarioUpdateDTO dto){
+        Usuario usuario= usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+        UsuarioMapper.atualizarDados(dto, usuario);
+        return usuarioRepository.save(usuario);
     }
 
     @Transactional

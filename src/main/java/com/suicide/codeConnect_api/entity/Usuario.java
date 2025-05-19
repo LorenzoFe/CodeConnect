@@ -20,7 +20,7 @@ public class Usuario implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true, length = 100)
+    @Column(name = "username", nullable = false, unique = false, length = 100)
     private String username;
 
     @Column(name = "email", nullable = false, unique = true, length = 100)
@@ -32,9 +32,15 @@ public class Usuario implements Serializable {
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
+    @Column(name = "descricao")
+    private String descricao;
 
-    @Column(name = "imagem", nullable = false)
-    private Byte[] imagemUsuario ;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuarios = (Usuario) o;
+        return Objects.equals(id, usuarios.id);
+    }
 
     @Override
     public int hashCode() {

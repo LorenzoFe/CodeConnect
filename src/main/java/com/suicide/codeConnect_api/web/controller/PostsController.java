@@ -43,8 +43,8 @@ public class PostsController {
         return ResponseEntity.ok(PosteMapper.toDto(post));
     }
 
-    @GetMapping("/titulo/{title}")
-    public ResponseEntity<List<PostsResponseDTO>> getTitle(@PathVariable String title){
+    @GetMapping("/titulo")
+    public ResponseEntity<List<PostsResponseDTO>> getTitle(@RequestParam String title){
         List<Posts> posts = postsService.buscarPorTitle(title);
         List<PostsResponseDTO> dtoList = posts.stream()
                 .map(PosteMapper::toDto)
