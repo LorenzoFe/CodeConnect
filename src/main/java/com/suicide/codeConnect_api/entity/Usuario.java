@@ -32,6 +32,9 @@ public class Usuario implements Serializable {
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
+    @Column(name = "descricao")
+    private String descricao;
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

@@ -8,11 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UsuarioResponseDto {
+public class UsuarioUpdateDTO {
 
-
-    private long id;
     private String username;
-    private String email;
     private String descricao;
+
 }

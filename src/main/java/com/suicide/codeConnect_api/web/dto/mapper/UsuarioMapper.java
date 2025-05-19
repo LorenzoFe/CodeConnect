@@ -3,6 +3,7 @@ package com.suicide.codeConnect_api.web.dto.mapper;
 import com.suicide.codeConnect_api.entity.Usuario;
 import com.suicide.codeConnect_api.web.dto.UsuarioCreateDto;
 import com.suicide.codeConnect_api.web.dto.UsuarioResponseDto;
+import com.suicide.codeConnect_api.web.dto.UsuarioUpdateDTO;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -22,5 +23,10 @@ public class UsuarioMapper {
     }
     public static List<UsuarioResponseDto> toListDto(List<Usuario> usuarios){
         return usuarios.stream().map(user -> toDto(user)).collect(Collectors.toList());
+    }
+
+    public static void atualizarDados(UsuarioUpdateDTO dto, Usuario usuario){
+        usuario.setUsername(dto.getUsername());
+        usuario.setDescricao(dto.getDescricao());
     }
 }
