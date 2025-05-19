@@ -2,6 +2,7 @@ package com.suicide.codeConnect_api.service;
 
 import com.suicide.codeConnect_api.entity.Posts;
 import com.suicide.codeConnect_api.entity.Usuario;
+import com.suicide.codeConnect_api.exception.PostNotFoundException;
 import com.suicide.codeConnect_api.repository.PostsRepository;
 import com.suicide.codeConnect_api.repository.UsuarioRepository;
 import com.suicide.codeConnect_api.web.dto.PostsDto;
@@ -56,10 +57,13 @@ public class PostsService {
     }
 
     @Transactional
-    public Posts buscarPorTitle(String title) {
-        return postsRepository.findByTitle(title).orElseThrow(
-                () -> new EntityNotFoundException(String.format("titulo '/%s' não encontrado", title))
-        );
+    public List<Posts> buscarPorTitle(String title) {
+        List<Posts> posts = postsRepository.findByTitleContainingIgnoreCase(title);
+        if (posts.isEmpty()){
+            throw new PostNotFoundException("Post não encontrado");
+        }
+        return posts;
+
     }
 
 

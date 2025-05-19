@@ -1,6 +1,7 @@
 package com.suicide.codeConnect_api.web.exception;
 
 import com.suicide.codeConnect_api.exception.EmailUniqueViolationException;
+import com.suicide.codeConnect_api.exception.PostNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,15 @@ public class ApiExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(request,HttpStatus.CONFLICT, ex.getMessage()));
+    }
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<ErrorMessage> postNotFoundException(PostNotFoundException ex,
+                                                              HttpServletRequest request){
+        log.error("API Error", ex);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
     }
 
 

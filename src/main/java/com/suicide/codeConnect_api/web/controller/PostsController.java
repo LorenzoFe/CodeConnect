@@ -43,11 +43,16 @@ public class PostsController {
         return ResponseEntity.ok(PosteMapper.toDto(post));
     }
 
-    @PostMapping("/titulo")
-    public ResponseEntity<PostsResponseDTO> getTitle(@RequestBody TitleDto title){
-        Posts post = postsService.buscarPorTitle(title.getTitle());
-        return ResponseEntity.ok(PosteMapper.toDto(post));
+    @GetMapping("/titulo/{title}")
+    public ResponseEntity<List<PostsResponseDTO>> getTitle(@PathVariable String title){
+        List<Posts> posts = postsService.buscarPorTitle(title);
+        List<PostsResponseDTO> dtoList = posts.stream()
+                .map(PosteMapper::toDto)
+                .toList();
+        return ResponseEntity.ok(dtoList);
     }
+
+
 
 //    @PutMapping("/{id}")
 //    public ResponseEntity<PostsDto> update(@PathVariable Long id, @Valid @RequestBody PostsDto dto) {
