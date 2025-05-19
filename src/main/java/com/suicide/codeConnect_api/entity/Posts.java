@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
@@ -38,8 +40,15 @@ public class Posts implements Serializable {
     @JoinColumn(name = "usuario_fk")
     private Usuario usuarioFk;
 
-    @Column(name = "data_criacao")
-    private LocalDateTime dataCriacaoPosts = LocalDateTime.now();
+    @CreatedDate
+    @Column(name = "data_criacao", updatable = false)
+    private LocalDateTime dataCriacao;
 
+    @LastModifiedDate
+    @Column(name = "data_atualizacao")
+    private LocalDateTime dataAtualizacao;
+
+    @Column(name = "imagem", nullable = false)
+    private Byte[] imagemPost ;
 
 }
