@@ -12,5 +12,6 @@ public class UsuarioUpdateDTO {
 
     private String username;
     private String descricao;
+    private String fotoUrl;
 
 }

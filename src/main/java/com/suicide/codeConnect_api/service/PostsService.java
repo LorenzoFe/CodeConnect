@@ -25,7 +25,7 @@ public class PostsService {
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         Posts posts = new Posts();
         posts.setTitle(postsDto.getTitle());
-        posts.setDescricaoPost((postsDto.getDescricaoPost()));
+        posts.setDescricao((postsDto.getDescricao()));
         posts.setUsuarioFk(usuario);
 
         return postsRepository.save(posts);

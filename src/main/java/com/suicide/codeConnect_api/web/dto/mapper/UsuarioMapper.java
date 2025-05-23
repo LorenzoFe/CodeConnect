@@ -26,7 +26,14 @@ public class UsuarioMapper {
     }
 
     public static void atualizarDados(UsuarioUpdateDTO dto, Usuario usuario){
-        usuario.setUsername(dto.getUsername());
-        usuario.setDescricao(dto.getDescricao());
+        if (dto.getUsername() != null){
+            usuario.setUsername(dto.getUsername());
+        }
+        if (dto.getDescricao() != null){
+            usuario.setDescricao(dto.getDescricao());
+        }
+        if (dto.getFotoUrl() != null){
+            usuario.setFotoUrl(dto.getFotoUrl());
+        }
     }
 }

@@ -16,7 +16,7 @@ public class UsuarioCreateDto {
 
     // Aqui vai ser onde faremos algumas validações antes de converte o DTO para Entidade usuario e salvar no banco
     @NotBlank
-    private String username;
+    private String name;
     @NotBlank
     @Email(message = "Formato do email está invalido", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
     private String email;

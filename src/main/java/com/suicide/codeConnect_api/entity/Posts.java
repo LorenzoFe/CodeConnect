@@ -31,8 +31,8 @@ public class Posts implements Serializable {
     @Column(name = "title", nullable = false, unique = false, length = 100)
     private String title;
 
-    @Column(name = "descricao_post", nullable = false, unique = true, length = 100)
-    private String descricaoPost;
+    @Column(name = "descricao_post", nullable = false)
+    private String descricao;
 
     @ManyToOne
     @JoinColumn(name = "usuario_fk")

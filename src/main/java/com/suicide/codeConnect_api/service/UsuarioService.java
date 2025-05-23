@@ -19,6 +19,9 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
+        if(!usuario.getName().startsWith("@")){
+            usuario.setName("@" + usuario.getName());
+        }
         try {
             return usuarioRepository.save(usuario);
         } catch (org.springframework.dao.DataIntegrityViolationException ex){
