@@ -27,6 +27,7 @@ public class PostsService {
         posts.setTitle(postsDto.getTitle());
         posts.setDescricao((postsDto.getDescricao()));
         posts.setUsuarioFk(usuario);
+        posts.setImageUrl(postsDto.getImageUrl());
 
         return postsRepository.save(posts);
     }

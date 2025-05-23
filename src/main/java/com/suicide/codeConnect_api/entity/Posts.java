@@ -41,5 +41,8 @@ public class Posts implements Serializable {
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacaoPosts = LocalDateTime.now();
 
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
+
 
 }

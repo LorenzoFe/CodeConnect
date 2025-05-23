@@ -2,6 +2,7 @@ package com.suicide.codeConnect_api.web.exception;
 
 import com.suicide.codeConnect_api.exception.EmailUniqueViolationException;
 import com.suicide.codeConnect_api.exception.PostNotFoundException;
+import com.suicide.codeConnect_api.exception.UniqueViolationExcption;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request,HttpStatus.UNPROCESSABLE_ENTITY,"Erro no preenchimento do campo",result));
     }
 
-    @ExceptionHandler(EmailUniqueViolationException.class)
+    @ExceptionHandler(UniqueViolationExcption.class)
     public ResponseEntity<ErrorMessage> uniqueViolationException (RuntimeException  ex ,
                                                                          HttpServletRequest request) {
         log.error("Api Error",ex);

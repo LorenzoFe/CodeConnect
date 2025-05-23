@@ -19,7 +19,7 @@ public class UsuarioResponseDto {
     private String username;
     private String email;
     private String descricao;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCriacao;
     private String fotoUrl;
 }

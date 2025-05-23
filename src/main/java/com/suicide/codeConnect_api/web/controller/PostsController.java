@@ -56,14 +56,6 @@ public class PostsController {
         return ResponseEntity.ok(dtoList);
     }
 
-
-
-//    @PutMapping("/{id}")
-//    public ResponseEntity<PostsDto> update(@PathVariable Long id, @Valid @RequestBody PostsDto dto) {
-//        Posts postAtualizado = postsService.atualizarPost(id, PosteMapper.toPoste(dto));
-//        return ResponseEntity.ok(PosteMapper.toDto(postAtualizado));
-//    }
-//
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         postsService.deletarPost(id);

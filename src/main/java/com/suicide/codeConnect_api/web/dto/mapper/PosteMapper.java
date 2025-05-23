@@ -13,14 +13,14 @@ public class PosteMapper {
 
     private static final ModelMapper modelMapper = new ModelMapper();
     public static Posts toPoste(PostsDto postsDto){
-        return new ModelMapper().map(postsDto, Posts.class);
+        return modelMapper.map(postsDto, Posts.class);
     }
 
 
     public static PostsResponseDTO toDto(Posts posts){
         PostsResponseDTO dto = modelMapper.map(posts, PostsResponseDTO.class);
         if (posts.getUsuarioFk() != null){
-            dto.setNomeUsuario(posts.getUsuarioFk().getUsername());
+            dto.setNomeUsuario(posts.getUsuarioFk().getName());
         }
         return dto;
     }

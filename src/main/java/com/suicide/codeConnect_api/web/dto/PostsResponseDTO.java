@@ -12,6 +12,7 @@ public class PostsResponseDTO {
     private String title;
     private String descricao;
     private String nomeUsuario;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private String imageUrl;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataCriacaoPosts;
 }

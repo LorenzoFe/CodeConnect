@@ -18,6 +18,8 @@ public class PostsDto {
     private String title;
     @NotBlank(message = "Descrição é obrigatorio")
     private String descricao;
+    @NotBlank(message = "A imagem é obrigátoria")
+    private String imageUrl;
     @NotNull(message = "ID do usuário é obrigatorio")
     private Long usuarioId;
 
