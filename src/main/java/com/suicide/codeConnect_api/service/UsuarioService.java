@@ -2,6 +2,7 @@ package com.suicide.codeConnect_api.service;
 
 import com.suicide.codeConnect_api.entity.Usuario;
 import com.suicide.codeConnect_api.exception.EmailUniqueViolationException;
+import com.suicide.codeConnect_api.exception.UniqueViolationExcption;
 import com.suicide.codeConnect_api.repository.UsuarioRepository;
 import com.suicide.codeConnect_api.web.dto.UsuarioUpdateDTO;
 import com.suicide.codeConnect_api.web.dto.mapper.UsuarioMapper;
@@ -19,11 +20,20 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
-        try {
-            return usuarioRepository.save(usuario);
-        } catch (org.springframework.dao.DataIntegrityViolationException ex){
-            throw new EmailUniqueViolationException(String.format("Email {%s} já cadastrado", usuario.getEmail()));
+        if(!usuario.getName().startsWith("@")){
+            usuario.setName("@" + usuario.getName());
         }
+        if (usuarioRepository.existsByName(usuario.getName())){
+            throw new UniqueViolationExcption(
+                    String.format("O nome %s já está cadastrado.", usuario.getName())
+            );
+        }
+        if (usuarioRepository.existsByEmail(usuario.getEmail())){
+            throw new UniqueViolationExcption(
+                    String.format("O email %s já foi cadastrado.", usuario.getEmail())
+            );
+        }
+        return usuarioRepository.save(usuario);
     }
 
     @Transactional

@@ -20,7 +20,10 @@ public class Usuario implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = false, length = 100)
+    @Column(nullable = false, unique = true, length = 100)
+    private String name;
+
+    @Column(name = "username", nullable = true, unique = false, length = 100)
     private String username;
 
     @Column(name = "email", nullable = false, unique = true, length = 100)
@@ -30,10 +33,13 @@ public class Usuario implements Serializable {
     private String password;
 
     @Column(name = "data_criacao")
-    private LocalDateTime dataCriacao;
+    private LocalDateTime dataCriacao = LocalDateTime.now();;
 
     @Column(name = "descricao")
     private String descricao;
+
+    @Column(name = "foto_url")
+    private String fotoUrl;
 
     @Override
     public boolean equals(Object o) {
