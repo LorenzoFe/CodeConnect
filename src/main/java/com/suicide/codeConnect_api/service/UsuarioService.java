@@ -9,6 +9,7 @@ import com.suicide.codeConnect_api.web.dto.mapper.UsuarioMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
@@ -33,6 +35,7 @@ public class UsuarioService {
                     String.format("O email %s já foi cadastrado.", usuario.getEmail())
             );
         }
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
@@ -43,15 +46,15 @@ public class UsuarioService {
         );
     }
 
-    @Transactional
-    public Usuario autenticar(String email, String password) {
-        Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
-        if (!usuario.getPassword().equals(password)){
-            throw new IllegalArgumentException("Senha incorreta");
-        }
-        return usuario;
-    }
+//    @Transactional
+//    public Usuario autenticar(String email, String password) {
+//        Usuario usuario = usuarioRepository.findByEmail(email)
+//                .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
+//        if (!usuario.getPassword().equals(password)){
+//            throw new IllegalArgumentException("Senha incorreta");
+//        }
+//        return usuario;
+//    }
 
     @Transactional
     public Usuario atualizarDados(Long id, UsuarioUpdateDTO dto){

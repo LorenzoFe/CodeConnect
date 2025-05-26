@@ -47,11 +47,11 @@ public class UsuarioController {
         return ResponseEntity.ok(UsuarioMapper.toDto(usuario));
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginDto loginDto){
-        Usuario usuario = usuarioService.autenticar(loginDto.getEmail(), loginDto.getPassword());
-        return ResponseEntity.ok(LoginMapper.toLoginDto(usuario));
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginDto loginDto){
+//        Usuario usuario = usuarioService.autenticar(loginDto.getEmail(), loginDto.getPassword());
+//        return ResponseEntity.ok(LoginMapper.toLoginDto(usuario));
+//    }
 
     @PatchMapping("/atualiza-senha/{id}")
         public ResponseEntity<UsuarioResponseDto> updatePassword(@PathVariable Long id, @Valid @RequestBody UsuarioSenhaDto dto){
