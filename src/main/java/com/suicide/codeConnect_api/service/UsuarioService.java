@@ -9,6 +9,7 @@ import com.suicide.codeConnect_api.web.dto.mapper.UsuarioMapper;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
@@ -33,6 +35,7 @@ public class UsuarioService {
                     String.format("O email %s já foi cadastrado.", usuario.getEmail())
             );
         }
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
@@ -47,7 +50,7 @@ public class UsuarioService {
     public Usuario autenticar(String email, String password) {
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario não encontrado"));
-        if (!usuario.getPassword().equals(password)){
+        if (!passwordEncoder.matches(password, usuario.getPassword())){
             throw new IllegalArgumentException("Senha incorreta");
         }
         return usuario;
@@ -74,9 +77,9 @@ public class UsuarioService {
             return user;
     }
     @Transactional
-    public Usuario buscarPorEmail(String email) {
-            return usuarioRepository.findByEmail(email).orElseThrow(
-                    () -> new EntityNotFoundException(" email não encontrado")
+    public Usuario buscarPorName(String name) {
+            return usuarioRepository.findByName(name).orElseThrow(
+                    () -> new EntityNotFoundException(" nome não encontrado")
             );
     }
     @Transactional

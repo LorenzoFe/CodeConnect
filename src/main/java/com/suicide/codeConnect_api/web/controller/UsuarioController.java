@@ -37,9 +37,9 @@ public class UsuarioController {
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
 
-    @PostMapping("/email")
-    public ResponseEntity<UsuarioResponseDto> getEmail(@RequestBody EmailDto email){
-        Usuario user = usuarioService.buscarPorEmail(email.getEmail());
+    @GetMapping("/nome/{name}")
+    public ResponseEntity<UsuarioResponseDto> getEmail(@PathVariable String name){
+        Usuario user = usuarioService.buscarPorName(name);
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
 
