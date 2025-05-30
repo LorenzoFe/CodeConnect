@@ -21,7 +21,7 @@ public class PosteMapper {
         PostsResponseDTO dto = modelMapper.map(posts, PostsResponseDTO.class);
         if (posts.getUsuarioFk() != null){
             dto.setNomeUsuario(posts.getUsuarioFk().getName());
-            dto.setUserId(String.valueOf(posts.getUsuarioFk().getId()));
+            dto.setUserId(posts.getUsuarioFk().getId());
         }
         return dto;
     }

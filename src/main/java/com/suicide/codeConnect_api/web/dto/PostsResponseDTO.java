@@ -11,7 +11,7 @@ public class PostsResponseDTO {
     private long id;
     private String title;
     private String descricao;
-    private String userId;
+    private long userId;
     private String nomeUsuario;
     private String imageUrl;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
