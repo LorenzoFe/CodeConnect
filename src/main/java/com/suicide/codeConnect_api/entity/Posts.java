@@ -44,17 +44,9 @@ public class Posts implements Serializable {
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
 
-<<<<<<< HEAD
-    @LastModifiedDate
-    @Column(name = "data_atualizacao")
-    private LocalDateTime dataAtualizacao;
-
-    @Column(name = "imagem", nullable = false)
-    private Byte[] imagemPost ;
-=======
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
->>>>>>> 4bdb5d25f91427ce2734e352c3a3791583cdbd1c
+
 
 }
