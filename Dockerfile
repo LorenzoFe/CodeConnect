@@ -1,14 +1,17 @@
-# Imagem base otimizada para Java 21
-FROM eclipse-temurin:21-jdk-jammy
+FROM maven:3.9.6-amazoncorretto-21 AS build
 
-# Diretório de trabalho no container
 WORKDIR /app
 
-# Copia o arquivo JAR para o container
-COPY codeconnect-api.jar app.jar
+COPY . .
 
-# Expõe a porta da aplicação
+RUN mvn clean package -DskipTests
+
+FROM amazoncorretto:21
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Comando de execução
 ENTRYPOINT ["java", "-jar", "app.jar"]

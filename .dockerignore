@@ -1,7 +1,0 @@
-.git
-!.mvn/wrapper/maven-wrapper.jar
-*.iml
-.idea/
-*.log
-*.md
-.DS_Store
