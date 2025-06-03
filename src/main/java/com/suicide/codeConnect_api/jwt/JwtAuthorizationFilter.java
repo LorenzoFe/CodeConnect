@@ -25,24 +25,28 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         final String token = request.getHeader(JwtUtils.JWT_AUTHORIZATION);
 
-        if (token == null || !token.startsWith(JwtUtils.JWT_BEARER)){
-            log.info("JWT está nulo, vazio ou não iniciado com 'Bearer ' .");
-            filterChain .doFilter(request, response);
-            return;
-        }
-
-        if (!JwtUtils.isTokenValid(token)){
-            log.warn("JWT token está invalido ou expirado.");
+        if (token == null || !token.startsWith(JwtUtils.JWT_BEARER + " ")) {
+            log.info("JWT está nulo, vazio ou não iniciado com 'Bearer '.");
             filterChain.doFilter(request, response);
             return;
         }
+
+        if (!JwtUtils.isTokenValid(token)) {
+            log.warn("JWT token está inválido ou expirado.");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401
+            response.setContentType("application/json");
+            response.getWriter().write("{\"error\": \"Token inválido ou expirado.\"}");
+            return;  // para aqui, não segue adiante
+        }
+
         String username = JwtUtils.getEmailFromToken(token);
 
-        toAuthenticator(request, username);
+        autenticarUsuario(request, username);
 
         filterChain.doFilter(request, response);
     }
-    private void toAuthenticator(HttpServletRequest request, String username){
+
+    private void autenticarUsuario(HttpServletRequest request, String username) {
         UserDetails userDetails = detailsService.loadUserByUsername(username);
 
         UsernamePasswordAuthenticationToken authenticationToken = UsernamePasswordAuthenticationToken
