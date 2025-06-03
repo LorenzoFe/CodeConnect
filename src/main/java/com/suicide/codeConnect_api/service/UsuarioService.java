@@ -82,6 +82,13 @@ public class UsuarioService {
                     () -> new EntityNotFoundException(" email não encontrado")
             );
     }
+
+    @Transactional
+    public Usuario buscarPorNome(String name) {
+        return usuarioRepository.findByName(name).orElseThrow(
+                () -> new EntityNotFoundException(" nome não encontrado")
+        );
+    }
     @Transactional
     public List<Usuario> listarTodos(){
         return usuarioRepository.findAll();

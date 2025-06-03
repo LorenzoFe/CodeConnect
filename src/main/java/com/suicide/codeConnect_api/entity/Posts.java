@@ -31,6 +31,7 @@ public class Posts implements Serializable {
     @Column(name = "title", nullable = false, unique = false, length = 100)
     private String title;
 
+    @Lob
     @Column(name = "descricao_post", nullable = false)
     private String descricao;
 
@@ -41,7 +42,7 @@ public class Posts implements Serializable {
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacaoPosts = LocalDateTime.now();
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url")
     private String imageUrl;
 
 
