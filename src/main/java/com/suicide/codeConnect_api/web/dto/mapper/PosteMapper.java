@@ -4,7 +4,6 @@ import com.suicide.codeConnect_api.entity.Posts;
 import com.suicide.codeConnect_api.web.dto.PostsDto;
 import com.suicide.codeConnect_api.web.dto.PostsResponseDTO;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.Banner;
 
 import java.util.List;
 import java.util.stream.Collectors;

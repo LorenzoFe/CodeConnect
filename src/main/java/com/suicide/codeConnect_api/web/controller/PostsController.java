@@ -2,19 +2,15 @@ package com.suicide.codeConnect_api.web.controller;
 
 
 import com.suicide.codeConnect_api.entity.Posts;
-import com.suicide.codeConnect_api.repository.PostsRepository;
 import com.suicide.codeConnect_api.service.PostsService;
 import com.suicide.codeConnect_api.web.dto.*;
 import com.suicide.codeConnect_api.web.dto.mapper.PosteMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
