@@ -60,11 +60,8 @@ public class SpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-<<<<<<< HEAD
-    //  aqui fica o CORS
-=======
+
     // aqui está o CORS
->>>>>>> 81bc2f89fe5587dca0a7b8692a4a099507ba2437
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
