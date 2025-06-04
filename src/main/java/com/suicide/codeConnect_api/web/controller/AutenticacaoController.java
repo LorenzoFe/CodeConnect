@@ -30,17 +30,12 @@ public class AutenticacaoController {
     @PostMapping("/auth")
     public ResponseEntity<?> autenticar(@RequestBody @Valid LoginDto dto, HttpServletRequest request){
         log.info("Processo de autenticação pelo login {}", dto.getEmail());
-        try{
+
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
             authenticationManager.authenticate(authenticationToken);
             JwtToken token = detailsService.getTokenAuthenticated(dto.getEmail());
             return ResponseEntity.ok(token);
-        }catch (AuthenticationException ex){
-            log.warn("Bad credentials from email '{}'",dto.getEmail());
-        }
-        return ResponseEntity
-                .badRequest().body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, "Credenciais invalidas!"));
 
     }
 }
