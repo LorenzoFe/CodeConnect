@@ -1,8 +1,10 @@
 package com.suicide.codeConnect_api.web.controller;
 
+import com.suicide.codeConnect_api.entity.Usuario;
 import com.suicide.codeConnect_api.jwt.JwtToken;
 import com.suicide.codeConnect_api.jwt.JwtUserDetailsService;
 import com.suicide.codeConnect_api.web.dto.LoginDto;
+import com.suicide.codeConnect_api.web.dto.LoginResponseDTO;
 import com.suicide.codeConnect_api.web.exception.ErrorMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,12 +32,23 @@ public class AutenticacaoController {
     @PostMapping("/auth")
     public ResponseEntity<?> autenticar(@RequestBody @Valid LoginDto dto, HttpServletRequest request){
         log.info("Processo de autenticação pelo login {}", dto.getEmail());
-
+            //autentica o usuário
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
             authenticationManager.authenticate(authenticationToken);
+            // cria o token JWT
             JwtToken token = detailsService.getTokenAuthenticated(dto.getEmail());
-            return ResponseEntity.ok(token);
+
+            //busca o usuário completo pra pegar id e email
+            Usuario usuario = detailsService.getUsuarioByEmail(dto.getEmail());
+
+            LoginResponseDTO responseDTO = new LoginResponseDTO(
+                    usuario.getId(),
+                    usuario.getName(),
+                    usuario.getEmail(),
+                    token.getToken()
+            );
+            return ResponseEntity.ok(responseDTO);
 
     }
 }

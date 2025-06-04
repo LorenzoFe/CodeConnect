@@ -31,4 +31,12 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
         return JwtUtils.createToken(usuario);
     }
+    public Usuario getUsuarioByEmail(String email) {
+        Usuario usuario = usuarioService.buscarPorEmail(email);
+        if (usuario == null){
+            throw new UniqueViolationExcption("Usuário com email " + email + " não encontrado");
+        }
+        return usuario;
+    }
+
 }

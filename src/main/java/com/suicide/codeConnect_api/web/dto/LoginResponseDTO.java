@@ -10,6 +10,7 @@ import lombok.*;
 @ToString
 public class LoginResponseDTO {
     private Long id;
-    private String username;
+    private String name;
     private String email;
+    private String token;
 }
