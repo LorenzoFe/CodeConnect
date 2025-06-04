@@ -25,6 +25,10 @@ public class JwtUserDetailsService implements UserDetailsService {
         return new JwtUserDetails(usuario);
     }
     public JwtToken getTokenAuthenticated(String email){
-        return JwtUtils.createToken(email);
+        Usuario usuario = usuarioService.buscarPorEmail(email);
+        if (usuario == null){
+            throw new UniqueViolationExcption("Usuário com email" + email + "não encontrado");
+        }
+        return JwtUtils.createToken(usuario);
     }
 }

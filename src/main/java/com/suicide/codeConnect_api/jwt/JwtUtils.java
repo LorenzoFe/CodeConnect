@@ -1,6 +1,7 @@
 package com.suicide.codeConnect_api.jwt;
 
 
+import com.suicide.codeConnect_api.entity.Usuario;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
@@ -36,13 +37,14 @@ public class JwtUtils {
         return Date.from(end.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public static JwtToken createToken(String email){
+    public static JwtToken createToken(Usuario usuario){
         Date issueAt = new Date();
         Date limit = toExpireDate(issueAt);
 
         String token = Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setSubject(email)
+                .setSubject(usuario.getEmail())
+                .claim("id", usuario.getId())
                 .setIssuedAt(issueAt)
                 .setExpiration(limit)
                 .signWith(generatedKey(), SignatureAlgorithm.HS256)
