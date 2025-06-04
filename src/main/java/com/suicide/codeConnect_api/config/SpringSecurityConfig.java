@@ -60,7 +60,7 @@ public class SpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // 🔥 CORS atualizado e correto
+    //  aqui fica o CORS
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
