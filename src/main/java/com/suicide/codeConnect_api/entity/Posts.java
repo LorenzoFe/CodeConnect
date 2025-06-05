@@ -34,7 +34,7 @@ public class Posts implements Serializable {
     private String title;
 
     @Lob
-    @Column(name = "descricao_post", nullable = false)
+    @Column(name = "descricao_post", nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
     @ManyToOne
