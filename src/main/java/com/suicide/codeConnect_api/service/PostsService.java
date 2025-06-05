@@ -3,6 +3,7 @@ package com.suicide.codeConnect_api.service;
 import com.suicide.codeConnect_api.entity.Posts;
 import com.suicide.codeConnect_api.entity.Usuario;
 import com.suicide.codeConnect_api.exception.PostNotFoundException;
+import com.suicide.codeConnect_api.exception.UsuarioNotFoundException;
 import com.suicide.codeConnect_api.repository.PostsRepository;
 import com.suicide.codeConnect_api.repository.UsuarioRepository;
 import com.suicide.codeConnect_api.web.dto.PostsDto;
@@ -22,7 +23,7 @@ public class PostsService {
     @Transactional
     public Posts criarPost(PostsDto postsDto) {
         Usuario usuario = usuarioRepository.findById(postsDto.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado"));
         Posts posts = new Posts();
         posts.setTitle(postsDto.getTitle());
         posts.setDescricao((postsDto.getDescricao()));
@@ -40,7 +41,7 @@ public class PostsService {
     @Transactional
     public List<Posts> getPostsByUsuarioId(Long usuarioId){
         var usuario = usuarioRepository.findById(usuarioId)
-                .orElseThrow(()-> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(()-> new UsuarioNotFoundException("Usuário não encontrado"));
         return postsRepository.findByUsuarioFk(usuario);
     }
 
@@ -53,7 +54,7 @@ public class PostsService {
     @Transactional
     public Posts buscarPorId(Long id) {
         return postsRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Post não encontrado", id))
+                () -> new PostNotFoundException(String.format("Post não encontrado", id))
         );
     }
 

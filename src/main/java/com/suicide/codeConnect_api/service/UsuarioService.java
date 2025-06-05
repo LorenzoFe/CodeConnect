@@ -3,6 +3,7 @@ package com.suicide.codeConnect_api.service;
 import com.suicide.codeConnect_api.entity.Usuario;
 import com.suicide.codeConnect_api.exception.EmailUniqueViolationException;
 import com.suicide.codeConnect_api.exception.UniqueViolationExcption;
+import com.suicide.codeConnect_api.exception.UsuarioNotFoundException;
 import com.suicide.codeConnect_api.repository.UsuarioRepository;
 import com.suicide.codeConnect_api.web.dto.UsuarioUpdateDTO;
 import com.suicide.codeConnect_api.web.dto.mapper.UsuarioMapper;
@@ -42,7 +43,7 @@ public class UsuarioService {
     @Transactional
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Usuario id=%s não encontrado", id))
+                () -> new UsuarioNotFoundException(String.format("Usuario id=%s não encontrado", id))
         );
     }
 
@@ -59,7 +60,7 @@ public class UsuarioService {
     @Transactional
     public Usuario atualizarDados(Long id, UsuarioUpdateDTO dto){
         Usuario usuario= usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuario não encontrado"));
         UsuarioMapper.atualizarDados(dto, usuario);
         return usuarioRepository.save(usuario);
     }
@@ -79,14 +80,14 @@ public class UsuarioService {
     @Transactional
     public Usuario buscarPorEmail(String email) {
             return usuarioRepository.findByEmail(email).orElseThrow(
-                    () -> new EntityNotFoundException(" email não encontrado")
+                    () -> new UsuarioNotFoundException(" email não encontrado")
             );
     }
 
     @Transactional
     public Usuario buscarPorNome(String name) {
         return usuarioRepository.findByName(name).orElseThrow(
-                () -> new EntityNotFoundException(" nome não encontrado")
+                () -> new UsuarioNotFoundException(" nome não encontrado")
         );
     }
     @Transactional

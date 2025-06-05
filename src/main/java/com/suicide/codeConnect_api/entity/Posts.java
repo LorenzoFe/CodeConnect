@@ -42,8 +42,8 @@ public class Posts implements Serializable {
     private Usuario usuarioFk;
 
     @CreatedDate
-    @Column(name = "data_criacao", updatable = false)
-    private LocalDateTime dataCriacao;
+    @Column(name = "data_criacao")
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @Column(name = "image_url")
     private String imageUrl;
