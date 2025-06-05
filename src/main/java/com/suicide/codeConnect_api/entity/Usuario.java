@@ -35,7 +35,7 @@ public class Usuario implements Serializable {
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao = LocalDateTime.now();;
     @Lob
-    @Column(name = "descricao", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "descricao", nullable = true, columnDefinition = "TEXT")
     private String descricao;
 
     @Column(name = "foto_url")
