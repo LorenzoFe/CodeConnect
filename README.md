@@ -36,7 +36,7 @@ Além disso, o CodeConnect pode ser utilizado em eventos acadêmicos, como a **M
 git clone https://github.com/LorenzoFe/CodeConnect.git
 ```
 
-2️⃣ **Configure o banco de dados no arquivo **``**:**
+2️⃣ **Configure o banco de dados no arquivo **`application.properties`**:**
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/codeconnect
